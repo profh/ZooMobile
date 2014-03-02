@@ -10,7 +10,7 @@ import com.example.zoomobile.FeedReaderContract.FeedLocations;
 
 public class FeedReaderDbHelper extends SQLiteOpenHelper {
 	public static final int DATABASE_VERSION = 1;
-	public static final String DATABASE_NAME = "QNAandPhotoPaths.db";
+	public static final String DATABASE_NAME = "ZooMobileDraft1.db";
 
 	private static final String TEXT_TYPE = " TEXT";
 	private static final String INT_TYPE = " INTEGER";
@@ -21,28 +21,32 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
 	
 	private static final String SQL_CREATE_ADVENTURES =
 			"CREATE TABLE " + FeedAdventures.TABLE_NAME + " (" +
-			FeedAdventures._ID + " INTEGER PRIMARY KEY," +
-			FeedAdventures.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
-			FeedAdventures.COLUMN_NAME_STARTINGPOINT + LOC_TYPE +
+			FeedAdventures._ID + " INTEGER PRIMARY KEY" + COMMA_SEP +
+			FeedAdventures.NAME + TEXT_TYPE + COMMA_SEP +
+			FeedAdventures.STARTINGPOINT + LOC_TYPE +
 			" )";
 	private static final String SQL_CREATE_LOCATIONS =
 	    "CREATE TABLE " + FeedLocations.TABLE_NAME + " (" +
-	    FeedLocations._ID + " INTEGER PRIMARY KEY," +
-	    FeedAdventures._ID + " INTEGER FOREIGN KEY REFERENCES " +
-	    	FeedAdventures.TABLE_NAME + "(" + FeedAdventures._ID + ")" + COMMA_SEP +
-	    FeedLocations.COLUMN_NAME_CLUE + TEXT_TYPE + COMMA_SEP +
-	    FeedLocations.COLUMN_NAME_TOKEN + TOKEN_TYPE + COMMA_SEP +
-	    FeedLocations.COLUMN_NAME_FOUND + BOOL_TYPE + COMMA_SEP +
-	    FeedLocations.COLUMN_NAME_FEEDBACKGOOD + TEXT_TYPE + COMMA_SEP +
-	    FeedLocations.COLUMN_NAME_FEEDBACKBAD + TEXT_TYPE + COMMA_SEP +
-	    FeedLocations.COLUMN_NAME_POINTS + INT_TYPE +
+	    FeedLocations._ID + " INTEGER PRIMARY KEY" + COMMA_SEP +
+	    FeedLocations.ADVENTURE_KEY + " INGTEGER" + COMMA_SEP +
+	    FeedLocations.CLUE + TEXT_TYPE + COMMA_SEP +
+	    FeedLocations.TOKEN + TOKEN_TYPE + COMMA_SEP +
+	    FeedLocations.FOUND + BOOL_TYPE + COMMA_SEP +
+	    FeedLocations.FEEDBACKGOOD + TEXT_TYPE + COMMA_SEP +
+	    FeedLocations.FEEDBACKBAD + TEXT_TYPE + COMMA_SEP +
+	    FeedLocations.POINTS + INT_TYPE + COMMA_SEP +
+	    "FOREIGN KEY(" + FeedLocations.ADVENTURE_KEY + ") REFERENCES " + 
+	    	FeedAdventures.TABLE_NAME + "(" + FeedAdventures._ID + ")" +
 	    " )";
 	private static final String SQL_CREATE_HINTS =
 		"CREATE TABLE " + FeedHints.TABLE_NAME + " (" +
-		FeedHints._ID + " INTEGER PRIMARY KEY," +
-		FeedHints.COLUMN_NAME_TEXT + TEXT_TYPE + COMMA_SEP +
-		FeedHints.COLUMN_NAME_USED + BOOL_TYPE + COMMA_SEP +
-		FeedHints.COLUMN_NAME_PTDEDUCT + INT_TYPE +
+		FeedHints._ID + " INTEGER PRIMARY KEY" + COMMA_SEP +
+		FeedHints.LOCATION_KEY + " INGTEGER" + COMMA_SEP +
+		FeedHints.TEXT + TEXT_TYPE + COMMA_SEP +
+		FeedHints.USED + BOOL_TYPE + COMMA_SEP +
+		FeedHints.PTDEDUCT + INT_TYPE + COMMA_SEP +
+		"FOREIGN KEY(" + FeedHints.LOCATION_KEY + ") REFERENCES " + 
+    		FeedLocations.TABLE_NAME + "(" + FeedLocations._ID + ")" +
 		" )";
 	
 	private static final String SQL_DELETE_ADVENTURES =
